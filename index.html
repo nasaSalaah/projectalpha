@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JijiClone - Nigeria's Largest Marketplace</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">JijiClone</a>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for anything..." id="main-search">
+                    <select id="location-select">
+                        <option value="all">All Nigeria</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="abuja">Abuja</option>
+                        <option value="kano">Kano</option>
+                        <option value="ibadan">Ibadan</option>
+                        <option value="benin">Benin City</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="post.html" class="nav-link post-btn">Post Ad</a>
+                <a href="messages.html" class="nav-link">Messages</a>
+                <a href="wishlist.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-user"></i>
+                        Account
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="profile.html">My Profile</a>
+                        <a href="login.html">Login</a>
+                        <a href="register.html">Register</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nigeria's Largest Marketplace</h1>
+            <p>Buy, sell and discover thousands of products from trusted sellers</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">2.5M+</span>
+                    <span class="stat-label">Products</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">500K+</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">36</span>
+                    <span class="stat-label">States</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="categories-grid" id="categories-grid">
+                <!-- Categories loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Products</h2>
+                <a href="category.html" class="view-all">View All</a>
+            </div>
+            <div class="products-grid" id="featured-products">
+                <!-- Featured products loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Products -->
+    <section class="recent-products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Recent Listings</h2>
+                <a href="category.html" class="view-all">View All</a>
+            </div>
+            <div class="products-grid" id="recent-products">
+                <!-- Recent products loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Locations -->
+    <section class="popular-locations">
+        <div class="container">
+            <h2 class="section-title">Popular Locations</h2>
+            <div class="locations-grid">
+                <a href="category.html?location=lagos" class="location-card">
+                    <h3>Lagos</h3>
+                    <p>45,230 ads</p>
+                </a>
+                <a href="category.html?location=abuja" class="location-card">
+                    <h3>Abuja</h3>
+                    <p>28,150 ads</p>
+                </a>
+                <a href="category.html?location=kano" class="location-card">
+                    <h3>Kano</h3>
+                    <p>15,890 ads</p>
+                </a>
+                <a href="category.html?location=ibadan" class="location-card">
+                    <h3>Ibadan</h3>
+                    <p>12,340 ads</p>
+                </a>
+                <a href="category.html?location=benin" class="location-card">
+                    <h3>Benin City</h3>
+                    <p>8,720 ads</p>
+                </a>
+                <a href="category.html?location=kaduna" class="location-card">
+                    <h3>Kaduna</h3>
+                    <p>6,450 ads</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About JijiClone</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Safety Tips</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Report Ad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div class="app-downloads">
+                        <a href="#" class="download-btn">
+                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store">
+                        </a>
+                        <a href="#" class="download-btn">
+                            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JijiClone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize home page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            loadFeaturedProducts();
+            loadRecentProducts();
+            updateWishlistCount();
+        });
+    </script>
+</body>
+</html>

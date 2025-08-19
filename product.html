@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - JijiClone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">JijiClone</a>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for anything..." id="main-search">
+                    <select id="location-select">
+                        <option value="all">All Nigeria</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="abuja">Abuja</option>
+                        <option value="kano">Kano</option>
+                        <option value="ibadan">Ibadan</option>
+                        <option value="benin">Benin City</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="post.html" class="nav-link post-btn">Post Ad</a>
+                <a href="messages.html" class="nav-link">Messages</a>
+                <a href="wishlist.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-user"></i>
+                        Account
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="profile.html">My Profile</a>
+                        <a href="login.html">Login</a>
+                        <a href="register.html">Register</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-list" id="breadcrumb">
+                    <!-- Breadcrumb loaded dynamically -->
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-page">
+        <div class="container">
+            <div class="product-layout" id="product-content">
+                <!-- Product content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <h2 class="section-title">Related Products</h2>
+            <div class="products-grid" id="related-products">
+                <!-- Related products loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox-modal" class="modal lightbox-modal">
+        <div class="modal-content lightbox-content">
+            <span class="close-modal">&times;</span>
+            <img id="lightbox-image" src="" alt="">
+            <div class="lightbox-nav">
+                <button id="prev-image" class="lightbox-nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="next-image" class="lightbox-nav-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Seller Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Seller</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="contact-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="contact-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Phone</label>
+                        <input type="tel" id="contact-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contact-message" rows="4" placeholder="Hi, I'm interested in this item. Is it still available?" required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('contact-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize product page
+        document.addEventListener('DOMContentLoaded', function() {
+            const productId = getUrlParam('id');
+            if (productId) {
+                loadProductDetails(productId);
+            } else {
+                window.location.href = 'index.html';
+            }
+            updateWishlistCount();
+        });
+    </script>
+</body>
+</html>

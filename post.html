@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post an Ad - JijiClone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">JijiClone</a>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for anything..." id="main-search">
+                    <select id="location-select">
+                        <option value="all">All Nigeria</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="abuja">Abuja</option>
+                        <option value="kano">Kano</option>
+                        <option value="ibadan">Ibadan</option>
+                        <option value="benin">Benin City</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="post.html" class="nav-link post-btn">Post Ad</a>
+                <a href="messages.html" class="nav-link">Messages</a>
+                <a href="wishlist.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-user"></i>
+                        Account
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="profile.html">My Profile</a>
+                        <a href="login.html">Login</a>
+                        <a href="register.html">Register</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Ad Page -->
+    <div class="post-page">
+        <div class="container">
+            <!-- Progress Steps -->
+            <div class="post-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span>Category</span>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span>Details</span>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span>Photos</span>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span>Contact</span>
+                </div>
+            </div>
+
+            <!-- Post Form -->
+            <form id="post-form" class="post-form">
+                <!-- Step 1: Category Selection -->
+                <div class="form-step active" data-step="1">
+                    <div class="form-section">
+                        <h2>Choose a Category</h2>
+                        <p>Select the category that best describes your product</p>
+                        
+                        <div class="category-selection" id="category-selection">
+                            <!-- Categories loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Product Details -->
+                <div class="form-step" data-step="2">
+                    <div class="form-section">
+                        <h2>Product Details</h2>
+                        <p>Provide detailed information about your product</p>
+
+                        <div class="form-group">
+                            <label for="product-title">Product Title <span class="required">*</span></label>
+                            <input type="text" id="product-title" name="title" required maxlength="100">
+                            <small>Be specific and descriptive (max 100 characters)</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-price">Price (₦) <span class="required">*</span></label>
+                                <input type="number" id="product-price" name="price" required min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-condition">Condition <span class="required">*</span></label>
+                                <select id="product-condition" name="condition" required>
+                                    <option value="">Select condition</option>
+                                    <option value="new">Brand New</option>
+                                    <option value="used">Fairly Used</option>
+                                    <option value="refurbished">Refurbished</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-description">Description <span class="required">*</span></label>
+                            <textarea id="product-description" name="description" rows="6" required maxlength="1000" placeholder="Describe your product in detail. Include features, specifications, and any relevant information."></textarea>
+                            <small>Provide detailed information (max 1000 characters)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-features">Key Features</label>
+                            <div class="features-input">
+                                <input type="text" id="feature-input" placeholder="Add a feature">
+                                <button type="button" id="add-feature" class="btn-secondary">Add</button>
+                            </div>
+                            <div id="features-list" class="features-list">
+                                <!-- Features added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Photos -->
+                <div class="form-step" data-step="3">
+                    <div class="form-section">
+                        <h2>Add Photos</h2>
+                        <p>Add up to 8 high-quality photos to showcase your product</p>
+
+                        <div class="image-upload-area">
+                            <div class="upload-zone" id="upload-zone">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload photos or drag and drop</p>
+                                    <small>Maximum 8 photos, each up to 5MB</small>
+                                </div>
+                                <input type="file" id="image-input" multiple accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <div class="uploaded-images" id="uploaded-images">
+                                <!-- Uploaded images appear here -->
+                            </div>
+                        </div>
+
+                        <div class="photo-tips">
+                            <h4>Photo Tips:</h4>
+                            <ul>
+                                <li>Use good lighting and clear backgrounds</li>
+                                <li>Show the product from multiple angles</li>
+                                <li>Include close-ups of important details</li>
+                                <li>Avoid blurry or dark photos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Contact Information -->
+                <div class="form-step" data-step="4">
+                    <div class="form-section">
+                        <h2>Contact Information</h2>
+                        <p>How can buyers reach you?</p>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="seller-name">Your Name <span class="required">*</span></label>
+                                <input type="text" id="seller-name" name="sellerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="seller-phone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="seller-phone" name="sellerPhone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="seller-email">Email Address</label>
+                            <input type="email" id="seller-email" name="sellerEmail">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="seller-state">State <span class="required">*</span></label>
+                                <select id="seller-state" name="state" required>
+                                    <option value="">Select state</option>
+                                    <option value="lagos">Lagos</option>
+                                    <option value="abuja">Abuja</option>
+                                    <option value="kano">Kano</option>
+                                    <option value="ibadan">Ibadan</option>
+                                    <option value="benin">Benin City</option>
+                                    <option value="kaduna">Kaduna</option>
+                                    <option value="enugu">Enugu</option>
+                                    <option value="rivers">Port Harcourt</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="seller-lga">Local Government Area</label>
+                                <input type="text" id="seller-lga" name="lga" placeholder="e.g., Ikeja, Wuse, etc.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="acceptTerms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" target="_blank">Terms and Conditions</a>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="form-section">
+                        <h3>Preview Your Ad</h3>
+                        <div id="ad-preview" class="ad-preview">
+                            <!-- Preview loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Navigation -->
+                <div class="form-navigation">
+                    <button type="button" id="prev-step" class="btn-secondary" style="display: none;">Previous</button>
+                    <button type="button" id="next-step" class="btn-primary">Next</button>
+                    <button type="submit" id="submit-ad" class="btn-primary" style="display: none;">
+                        <i class="fas fa-check"></i>
+                        Post Ad
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ad Posted Successfully!</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Your ad has been posted successfully and is now live on JijiClone!</p>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Go to Home</button>
+                    <button type="button" class="btn-primary" onclick="window.location.href='profile.html'">View My Ads</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize post page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePostForm();
+            updateWishlistCount();
+        });
+    </script>
+</body>
+</html>

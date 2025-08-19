@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - JijiClone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">JijiClone</a>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for anything..." id="main-search">
+                    <select id="location-select">
+                        <option value="all">All Nigeria</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="abuja">Abuja</option>
+                        <option value="kano">Kano</option>
+                        <option value="ibadan">Ibadan</option>
+                        <option value="benin">Benin City</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="post.html" class="nav-link post-btn">Post Ad</a>
+                <a href="messages.html" class="nav-link">Messages</a>
+                <a href="wishlist.html" class="nav-link active">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-user"></i>
+                        Account
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="profile.html">My Profile</a>
+                        <a href="login.html">Login</a>
+                        <a href="register.html">Register</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Wishlist Page -->
+    <div class="wishlist-page">
+        <div class="container">
+            <div class="page-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-heart"></i> My Wishlist</h1>
+                    <p>Products you've saved for later</p>
+                </div>
+                <div class="wishlist-actions">
+                    <button id="clear-wishlist" class="btn-secondary" style="display: none;">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                    <span id="wishlist-total" class="wishlist-total">0 items</span>
+                </div>
+            </div>
+
+            <!-- Wishlist Content -->
+            <div id="wishlist-content" class="wishlist-content">
+                <!-- Wishlist items loaded dynamically -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-wishlist" class="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-heart-broken"></i>
+                </div>
+                <h3>Your wishlist is empty</h3>
+                <p>Start adding products to your wishlist by clicking the heart icon on any product.</p>
+                <a href="index.html" class="btn-primary">Browse Products</a>
+            </div>
+
+            <!-- Recommended Products -->
+            <div id="recommended-section" class="recommended-section" style="display: none;">
+                <h2 class="section-title">You Might Also Like</h2>
+                <div class="products-grid" id="recommended-products">
+                    <!-- Recommended products loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Modal -->
+    <div id="remove-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Remove from Wishlist</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this item from your wishlist?</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('remove-modal')">Cancel</button>
+                    <button type="button" class="btn-danger" id="confirm-remove">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear All Confirmation Modal -->
+    <div id="clear-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Clear Wishlist</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove all items from your wishlist? This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('clear-modal')">Cancel</button>
+                    <button type="button" class="btn-danger" id="confirm-clear">Clear All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize wishlist page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWishlist();
+            updateWishlistCount();
+        });
+    </script>
+</body>
+</html>

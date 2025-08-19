@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - JijiClone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">JijiClone</a>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for anything..." id="main-search">
+                    <select id="location-select">
+                        <option value="all">All Nigeria</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="abuja">Abuja</option>
+                        <option value="kano">Kano</option>
+                        <option value="ibadan">Ibadan</option>
+                        <option value="benin">Benin City</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="post.html" class="nav-link post-btn">Post Ad</a>
+                <a href="messages.html" class="nav-link active">Messages</a>
+                <a href="wishlist.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-user"></i>
+                        Account
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="profile.html">My Profile</a>
+                        <a href="login.html">Login</a>
+                        <a href="register.html">Register</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages Page -->
+    <div class="messages-page">
+        <div class="container">
+            <div class="messages-layout">
+                <!-- Conversations Sidebar -->
+                <div class="conversations-sidebar">
+                    <div class="conversations-header">
+                        <h2>Messages</h2>
+                        <div class="conversations-search">
+                            <input type="text" placeholder="Search conversations..." id="conversation-search">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+
+                    <div class="conversations-filter">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="unread">Unread</button>
+                        <button class="filter-btn" data-filter="archived">Archived</button>
+                    </div>
+
+                    <div id="conversations-list" class="conversations-list">
+                        <!-- Conversations loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="chat-area">
+                    <!-- Chat Header -->
+                    <div class="chat-header" id="chat-header" style="display: none;">
+                        <!-- Chat header loaded dynamically -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-chat" class="empty-chat">
+                        <div class="empty-chat-content">
+                            <i class="fas fa-comments"></i>
+                            <h3>Select a conversation</h3>
+                            <p>Choose a conversation from the sidebar to start chatting</p>
+                        </div>
+                    </div>
+
+                    <!-- Messages Container -->
+                    <div id="messages-container" class="messages-container" style="display: none;">
+                        <!-- Messages loaded dynamically -->
+                    </div>
+
+                    <!-- Message Input -->
+                    <div class="message-input-area" id="message-input-area" style="display: none;">
+                        <form id="message-form" class="message-form">
+                            <div class="message-input-container">
+                                <button type="button" class="attachment-btn" onclick="attachFile()">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <input type="file" id="file-input" style="display: none;" accept="image/*">
+                                <input type="text" id="message-input" placeholder="Type a message..." maxlength="1000" required>
+                                <button type="submit" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                            <span>Someone is typing...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block User Modal -->
+    <div id="block-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Block User</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to block this user? They will no longer be able to send you messages.</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('block-user-modal')">Cancel</button>
+                    <button type="button" class="btn-danger" id="confirm-block">Block User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report User Modal -->
+    <div id="report-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Report User</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="report-form">
+                    <div class="form-group">
+                        <label>Reason for reporting</label>
+                        <select id="report-reason" required>
+                            <option value="">Select a reason</option>
+                            <option value="spam">Spam or unwanted messages</option>
+                            <option value="harassment">Harassment or abuse</option>
+                            <option value="fraud">Fraud or scam</option>
+                            <option value="inappropriate">Inappropriate content</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional details (optional)</label>
+                        <textarea id="report-details" rows="3" placeholder="Provide more details about the issue..."></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('report-user-modal')">Cancel</button>
+                        <button type="submit" class="btn-danger">Submit Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="image-preview-modal" class="modal">
+        <div class="modal-content image-preview-content">
+            <span class="close-modal">&times;</span>
+            <img id="preview-image" src="" alt="Message attachment">
+        </div>
+    </div>
+
+    <!-- Mobile Conversations Toggle -->
+    <button class="mobile-conversations-toggle" id="mobile-conversations-toggle">
+        <i class="fas fa-list"></i>
+        Conversations
+    </button>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize messages page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            loadConversations();
+            updateWishlistCount();
+            
+            // Check for conversation ID in URL
+            const conversationId = getUrlParam('id');
+            if (conversationId) {
+                selectConversation(conversationId);
+            }
+        });
+    </script>
+</body>
+</html>
